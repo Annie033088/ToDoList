@@ -10,5 +10,6 @@ module.exports = defineConfig({
         pathRewrite:{'^/api':'/'},
       }
     },
-  }
+  },
+   publicPath: '/ToDoList/'
 })

@@ -12,6 +12,11 @@ const routes = [
         path: '/',
         name: 'AppHome',
         component: AppHome
+    },
+    {
+        path: '*',
+        name: 'AppDefault',
+        component: AppHome
     }
 ]
 

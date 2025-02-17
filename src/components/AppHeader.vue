@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     homePage() {
-      if (this.$route.path === "/") {
+      if (this.$route.path !== "/about") {
         return true;
       } else {
         return false;
