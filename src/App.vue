@@ -5,7 +5,7 @@
       @switchAddTaskForm="switchAddTaskForm"
       :showAddTaskFlag="showAddTaskFlag"
     ></AppHeader>
-    <router-view :showAddTaskFlag="showAddTaskFlag"></router-view>
+    <router-view :showAddTaskFlag="showAddTaskFlag" @switchAddTaskForm="switchAddTaskForm"></router-view>
     <AppFooter />
   </div>
 </template>

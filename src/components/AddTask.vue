@@ -1,12 +1,12 @@
 <template>
-  <div class="addForm">
+  <div class="addForm" @keyup.enter="submit">
     <div class="formControl">
       <label for="">請輸入事項</label>
       <input type="text" v-model="text" placeholder="請輸入待辦事項" />
     </div>
     <div class="formControl">
-      <label for="">請輸入日期</label>
-      <input type="text" v-model="day" placeholder="請輸入事件日期" />
+      <label for="">請輸入日期及時間</label>
+      <input type="datetime-local" v-model="day" placeholder="請輸入事件日期" />
     </div>
     <div class="formControlCheck formControl">
       <label for="">設定提醒</label>
@@ -23,6 +23,7 @@ export default {
     return {
       text: "",
       day: "",
+      time: "",
       reminder: false,
       validDay: false,
       validText: false,
@@ -32,6 +33,9 @@ export default {
     verificationResult() {
       return this.validDay && this.validText;
     },
+    dateTime() {
+      return this.day + this.time;
+    },
   },
   methods: {
     submit() {
@@ -39,8 +43,9 @@ export default {
       let newTask = {
         id: crypto.randomUUID(), //使用 json server 則不需要主動設定 id
         text: this.text,
-        day: this.day,
+        day: this.day.replace("T", " "),
         reminder: this.reminder,
+        completed: false,
       };
       this.$emit("addTask", newTask);
     },

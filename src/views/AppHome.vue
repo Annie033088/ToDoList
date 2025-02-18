@@ -5,6 +5,8 @@
       :tasks="tasks"
       @deleteTask="deleteTask"
       @toggleReminder="toggleReminder"
+      @toggleCompleted="toggleCompleted"
+      @editTask="editTask"
     />
   </div>
 </template>
@@ -30,14 +32,14 @@ export default {
   },
   methods: {
     //使用 json server 的話需要修改此處的增刪修查
-    async deleteTask(id) {
+    deleteTask(id) {
       if (confirm("確定刪除?")) {
         this.tasks = this.tasks.filter((task) => task.id !== id);
         localStorage.setItem("tasks", JSON.stringify(this.tasks));
         // alert("Error deleting task");
       }
     },
-    async toggleReminder(id) {
+    toggleReminder(id) {
       try {
         const task = this.tasks.find((task) => task.id === id);
 
@@ -50,13 +52,26 @@ export default {
         console.error("Error editing task:", error);
       }
     },
-    async addTask(newTask) {
+    toggleCompleted(id) {
+      const task = this.tasks.find((task) => task.id === id);
+
+      if (task) task.completed = !task.completed;
+
+      localStorage.setItem("tasks", JSON.stringify(this.tasks));
+    },
+    addTask(newTask) {
       try {
         this.tasks = [...this.tasks, newTask];
         localStorage.setItem("tasks", JSON.stringify(this.tasks));
+        this.$emit("switchAddTaskForm");
       } catch (error) {
         console.error("Error adding task:", error);
       }
+    },
+    editTask(newTask) {
+      let oldTask = this.tasks.find((task) => task.id === newTask.id);
+      oldTask.text = newTask.text;
+      localStorage.setItem("tasks", JSON.stringify(this.tasks));
     },
   },
   created() {

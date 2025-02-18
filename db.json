@@ -17,6 +17,12 @@
       "text": "Food Shopping",
       "day": "March 3rd at 11:00am",
       "reminder": false
+    },
+    {
+      "id": "4",
+      "text": "Aliens Researching",
+      "day": "March 5th at 20:00pm",
+      "reminder": false
     }
   ]
 }

@@ -50,8 +50,8 @@ header .imgContainer {
 }
 
 header img {
-  height: 30%;
-  width: 30%;
+  height: 25%;
+  width: 25%;
 }
 
 header .titleContainer {
