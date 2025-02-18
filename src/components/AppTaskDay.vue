@@ -11,6 +11,7 @@ export default {
   methods: {
     dayToText(day) {
       if (!day) return "";
+      
       let date = new Date(day);
       let formatter = new Intl.DateTimeFormat("zh-TW", {
         month: "numeric",

@@ -75,7 +75,13 @@ export default {
     },
   },
   created() {
-    this.tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    let version = localStorage.getItem("version");
+    if (version !== "1.1") {
+      localStorage.clear();
+      localStorage.setItem("version", "1.1");
+    } else {
+      this.tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    }
   },
 };
 </script>
