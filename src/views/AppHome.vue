@@ -76,6 +76,7 @@ export default {
   },
   created() {
     let version = localStorage.getItem("version");
+    
     if (version !== "1.1") {
       localStorage.clear();
       localStorage.setItem("version", "1.1");

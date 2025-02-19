@@ -104,6 +104,7 @@ export default {
       iconCircle: faCircle,
       text: "",
       day: "",
+      minDateTime: "",
       editTextFlag: false,
       editDayFlag: false,
     };
@@ -114,7 +115,7 @@ export default {
 
       let date = new Date(day);
       let formatter = new Intl.DateTimeFormat("zh-TW", {
-        weekday:"long",
+        weekday: "long",
         hour: "2-digit",
         minute: "2-digit",
         hour12: false,
@@ -138,6 +139,9 @@ export default {
       }
     },
     openEditDay() {
+      let now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+      this.minDateTime = now.toISOString().slice(0, 16);
       this.day = this.task.day;
       this.editDayFlag = true;
       this.$nextTick(() => {
@@ -145,7 +149,16 @@ export default {
       });
     },
     saveEditDay() {
+      let now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+      this.minDateTime = now.toISOString().slice(0, 16);
       this.editDayFlag = false;
+
+      if(this.day < this.minDateTime){
+        alert("請輸入正確時間");
+        return;
+      }
+
       if (this.task.day !== this.day) {
         const newTask = this.task;
         newTask.day = this.day.replace("T", " ");

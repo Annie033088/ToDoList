@@ -1,10 +1,14 @@
 <template>
   <header>
     <div class="imgContainer">
-      <img alt="cute logo" src="../assets/cat.png" />
+      <router-link to="/" class="imgContainer">
+        <img alt="cute logo" src="../assets/cat.png" />
+      </router-link>
     </div>
     <div class="titleContainer">
-      <h1>{{ title }}</h1>
+      <router-link to="/" class="title">
+        <h1>{{ title }}</h1>
+      </router-link>
       <AppButton
         v-if="homePage"
         :text="showAddTaskFlag ? 'Close' : 'Add Task'"
@@ -38,6 +42,11 @@ export default {
 </script>
 
 <style scoped>
+header .title {
+  text-decoration: none;
+  color: inherit;
+}
+
 header {
   margin-bottom: 20px;
 }
@@ -46,12 +55,12 @@ header .imgContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
 }
 
 header img {
-  height: 25%;
-  width: 25%;
+  height: 15%;
+  width: 15%;
 }
 
 header .titleContainer {

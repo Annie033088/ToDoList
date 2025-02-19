@@ -6,7 +6,12 @@
     </div>
     <div class="formControl">
       <label for="">請輸入日期及時間</label>
-      <input type="datetime-local" v-model="day" placeholder="請輸入事件日期" />
+      <input
+        type="datetime-local"
+        v-model="day"
+        placeholder="請輸入事件日期"
+        :min="minDateTime"
+      />
     </div>
     <div class="formControlCheck formControl">
       <label for="">設定提醒</label>
@@ -23,7 +28,7 @@ export default {
     return {
       text: "",
       day: "",
-      time: "",
+      minDateTime: "",
       reminder: false,
       validDay: false,
       validText: false,
@@ -33,13 +38,17 @@ export default {
     verificationResult() {
       return this.validDay && this.validText;
     },
-    dateTime() {
-      return this.day + this.time;
-    },
   },
   methods: {
     submit() {
       if (!this.verificationResult) return;
+
+      let now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+      this.minDateTime = now.toISOString().slice(0, 16);
+
+      if (this.day < this.minDateTime) return;
+
       let newTask = {
         id: crypto.randomUUID(), //使用 json server 則不需要主動設定 id
         text: this.text,
@@ -57,6 +66,12 @@ export default {
     day: function (newValue) {
       this.validDay = /^.{1,}$/.test(newValue);
     },
+  },
+  created() {
+    let now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    this.minDateTime = now.toISOString().slice(0, 16);
+    this.day = this.minDateTime;
   },
 };
 </script>
