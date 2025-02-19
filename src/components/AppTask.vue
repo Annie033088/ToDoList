@@ -154,7 +154,7 @@ export default {
       this.minDateTime = now.toISOString().slice(0, 16);
       this.editDayFlag = false;
 
-      if(this.day < this.minDateTime){
+      if (new Date(this.day) <  new Date(this.minDateTime)) {
         alert("請輸入正確時間");
         return;
       }

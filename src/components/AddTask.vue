@@ -1,11 +1,11 @@
 <template>
   <div class="addForm" @keyup.enter="submit">
     <div class="formControl">
-      <label for="">請輸入事項</label>
+      <label >請輸入事項</label>
       <input type="text" v-model="text" placeholder="請輸入待辦事項" />
     </div>
     <div class="formControl">
-      <label for="">請輸入日期及時間</label>
+      <label >請輸入日期及時間</label>
       <input
         type="datetime-local"
         v-model="day"
@@ -14,7 +14,7 @@
       />
     </div>
     <div class="formControlCheck formControl">
-      <label for="">設定提醒</label>
+      <label >設定提醒</label>
       <input type="checkbox" v-model="reminder" />
     </div>
     <button @click="submit" class="btn">儲存事項</button>

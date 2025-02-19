@@ -38,9 +38,11 @@ export default {
       day: "2-digit",
       hour12: false,
     });
+
+    //將日期的所有/取代成-
     currentDate = formatter.format(currentDate).replace(/\//g, "-");
 
-    if(this.day === currentDate){
+    if (this.day === currentDate) {
       this.isTodayFlag = true;
       return;
     }

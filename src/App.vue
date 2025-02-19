@@ -51,6 +51,7 @@ body {
   margin: 30px auto;
   overflow: auto;
   min-height: 300px;
+  max-height: 100vh; 
   border: 1px solid steelblue;
   padding: 30px;
   border-radius: 5px;
