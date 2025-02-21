@@ -2,17 +2,16 @@
   <header>
     <div class="imgContainer">
       <router-link to="/" class="imgContainer">
-        <img alt="cute logo" src="../assets/cat.png" />
+        <img class="btn" alt="cute logo" src="../assets/cat.png" />
       </router-link>
     </div>
     <div class="titleContainer">
       <router-link to="/" class="title">
-        <h1>{{ title }}</h1>
+        <h1 class="btn">{{ title }}</h1>
       </router-link>
       <AppButton
         v-if="homePage"
-        :text="showAddTaskFlag ? 'Close' : 'Add Task'"
-        :color="showAddTaskFlag ? 'Red' : 'green'"
+        :showAddTaskFlag="showAddTaskFlag"
         @switchAddTaskForm="$emit('switchAddTaskForm')"
       />
     </div>
@@ -48,7 +47,11 @@ header .title {
 }
 
 header {
+  border-bottom: 2px solid grey;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(182, 170, 170, 0.3);
   margin-bottom: 20px;
+  border-radius: 5px;
 }
 
 header .imgContainer {

@@ -1,6 +1,8 @@
 <template>
   <div>
-    <AddTask @addTask="addTask" v-if="showAddTaskFlag" />
+    <transition name="popup">
+    <AddTask @addTask="addTask" v-if="showAddTaskFlag" @badValue = "$emit('badValue')" />
+    </transition>
     <AppTasks
       :tasks="tasks"
       @deleteTask="deleteTask"
@@ -14,6 +16,7 @@
 <script>
 import AppTasks from "@/components/AppTasks";
 import AddTask from "@/components/AddTask";
+
 export default {
   name: "AppHome",
   components: {
@@ -31,12 +34,12 @@ export default {
     };
   },
   methods: {
+   
     //使用 json server 的話需要修改此處的增刪修查
     deleteTask(id) {
       if (confirm("確定刪除?")) {
         this.tasks = this.tasks.filter((task) => task.id !== id);
         localStorage.setItem("tasks", JSON.stringify(this.tasks));
-        // alert("Error deleting task");
       }
     },
     toggleReminder(id) {
@@ -86,3 +89,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.popup-enter, .popup-leave-to {
+ opacity: 0;
+  transform: translateY(-30px);
+}
+
+.popup-enter-active, .popup-leave-active{
+    transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+</style>

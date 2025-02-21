@@ -1,11 +1,11 @@
 <template>
   <div class="addForm" @keyup.enter="submit">
     <div class="formControl">
-      <label >請輸入事項</label>
+      <label>請輸入事項</label>
       <input type="text" v-model="text" placeholder="請輸入待辦事項" />
     </div>
     <div class="formControl">
-      <label >請輸入日期及時間</label>
+      <label>請輸入日期及時間</label>
       <input
         type="datetime-local"
         v-model="day"
@@ -13,11 +13,28 @@
         :min="minDateTime"
       />
     </div>
+
     <div class="formControlCheck formControl">
-      <label >設定提醒</label>
+      <label>設定提醒</label>
       <input type="checkbox" v-model="reminder" />
+      <div @click="submit" class="btnAddTask btn">
+        <svg
+          width="40"
+          height="40"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9 4H19V18C19 18.5304 18.7893 19.0391 18.4142 19.4142C18.0391 19.7893 17.5304 20 17 20H9M12 15L15 12M15 12L12 9M15 12H5"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
     </div>
-    <button @click="submit" class="btn">儲存事項</button>
   </div>
 </template>
 
@@ -41,13 +58,14 @@ export default {
   },
   methods: {
     submit() {
-      if (!this.verificationResult) return;
-
       let now = new Date();
       now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
       this.minDateTime = now.toISOString().slice(0, 16);
 
-      if (this.day < this.minDateTime) return;
+      if (!this.verificationResult || this.day < this.minDateTime) {
+        this.$emit("badValue");
+        return;
+      }
 
       let newTask = {
         id: crypto.randomUUID(), //使用 json server 則不需要主動設定 id
@@ -78,11 +96,11 @@ export default {
 
 <style scoped>
 .addForm {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .formControl {
-  margin: 20px;
+  margin: 15px;
 }
 
 .formControl label {
@@ -112,7 +130,11 @@ export default {
   height: 20px;
 }
 
-.btn {
-  width: 100%;
+.btnAddTask {
+  cursor: pointer;
+  opacity: 60%;
+}
+:hover {
+  opacity: 100%;
 }
 </style>

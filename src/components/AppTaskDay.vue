@@ -49,3 +49,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+h3 {
+  width: 100%;
+  border-bottom: 1px solid grey;
+  padding: 2px;
+}
+</style>
