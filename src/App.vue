@@ -63,6 +63,7 @@ export default {
 
 body {
   font-family: "Poppins", sans-serif;
+  overscroll-behavior-y: contain;
 }
 
 .container {
